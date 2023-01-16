@@ -49,6 +49,17 @@ namespace Lesson05
             return array;
         }
 
+        private static double[] CreateRandomArray( int _size, double _minValue, double _maxValue )
+        {
+            Random rnd = new Random();
+            double[] array = new double[_size];            
+            for (int i = 0; i < _size; i++)
+            {                
+                array[i] = rnd.Next((int)_minValue, (int)_maxValue - 1) + rnd.NextDouble();
+            }
+            return array;
+        }
+
         private static void PrintArray(int[] _array)
         {
             if (_array.Length > 0)
@@ -66,6 +77,31 @@ namespace Lesson05
                         Console.Write(", ");
                     }
                 }
+            }
+        }
+
+        private static void PrintArray( double[] _array )
+        {
+            
+            if (_array.Length > 0)
+            {
+                ConsoleColor color = Console.ForegroundColor;
+                
+                Console.Write("[");
+                for (int i = 0; i < _array.Length; i++)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("{0:F2}", _array[i]);
+                    Console.ForegroundColor = color;
+                    if (i == _array.Length - 1)
+                    {
+                        Console.Write("]");
+                    }
+                    else
+                    {
+                        Console.Write(", ");
+                    }
+                }                
             }
         }
 
@@ -87,6 +123,34 @@ namespace Lesson05
                 sum += _array[i];
             }
             return sum;
+        }
+
+        private static double FindMinValue( double[] _array )
+        {
+            double min = 0.0;
+            if (_array.Length > 0)
+            {
+                min = _array[0];
+                for (int i = 1; i < _array.Length; i++)
+                {
+                    if (_array[i] < min) min = _array[i];
+                }
+            }
+            return min;
+        }
+
+        private static double FindMaxValue( double[] _array )
+        {
+            double max = 0.0;
+            if (_array.Length > 0)
+            {
+                max = _array[0];
+                for (int i = 1; i < _array.Length; i++)
+                {
+                    if (_array[i] > max) max = _array[i];
+                }
+            }
+            return max;
         }
 
         static void Main( string[] args )
@@ -114,6 +178,11 @@ namespace Lesson05
             //Задача 38: Задайте массив вещественных чисел. Найдите разницу между максимальным и минимальным элементов массива.
             //    [3 7 22 2 78] -> 76
             Console.WriteLine("Задача 38: Задайте массив вещественных чисел. Найдите разницу между максимальным и минимальным элементов массива.");
+            Console.Write("Введите длинну массива - ");
+            int size3 = Convert.ToInt32(Console.ReadLine());
+            double[] array3 = CreateRandomArray(_size: size3, _minValue: -100.0, _maxValue: 100.0);
+            PrintArray(array3);
+            Console.WriteLine("\t -> {0:F2}", (double)(FindMaxValue(array3) - FindMinValue(array3)));
             Console.WriteLine(divider);
 
             Console.ReadKey();
